@@ -316,12 +316,13 @@ for role  in roles
     # read each character's movie, actor, and role
     movie_id = role["movie_id"]
     actor_id = role["actor_id"]
-    role = role["chacter_name"]
+    character = role["character_name"]
 
     # Fetch the movie title based on movie_id
     movie_title = Movie.find(movie_id).title
     actor_name = Actor.find(actor_id).name
     
-    # display the first_name and last_name
-    puts "#{movie_title} #{actor_name} #{role}"
+    # display the required info
+    puts "#{movie_title} #{actor_name} #{character}"
   end
+
