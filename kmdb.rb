@@ -69,14 +69,167 @@
 
 # Delete existing data, so you'll start fresh each time this script is run.
 # Use `Model.destroy_all` code.
-# TODO!
+Actor.destroy_all
+Movie.destroy_all
+Role.destroy_all
+Studio.destroy_all
 
 # Generate models and tables, according to the domain model.
-# TODO!
+# Done!! (See db:migrate)
 
 # Insert data into the database that reflects the sample data shown above.
 # Do not use hard-coded foreign key IDs.
 # TODO!
+
+# Insert row into studio table
+new_studio = Studio.new
+new_studio["name"]= "Warner Bros."
+new_studio.save
+
+# Count # of studios
+# puts "Studios: #{Studio.all.count}" # Studio count = 1
+wb = Studio.find_by({ "name" => "Warner Bros." })
+
+# Insert rows for movies
+new_movie = Movie.new
+new_movie["title"]= "Batman Begins"
+new_movie["year_released"] = 2005
+new_movie["rated"] = "PG-13"
+new_movie["studio_id"]= wb["id"]
+new_movie.save
+
+new_movie = Movie.new
+new_movie["title"]= "The Dark Knight"
+new_movie["year_released"] = 2008
+new_movie["rated"] = "PG-13"
+new_movie["studio_id"]= wb["id"]
+new_movie.save
+
+new_movie = Movie.new
+new_movie["title"]= "The Dark Knight Rises"
+new_movie["year_released"] = 2012
+new_movie["rated"] = "PG-13"
+new_movie["studio_id"]= wb["id"]
+new_movie.save
+
+# Count # of movies
+#puts "Movies: #{Movie.all.count}" # Movie count = 3
+
+#Insert rows for actors and roles: Batman Begins
+
+new_actor = Actor.new
+new_actor["name"] = "Christian Bale"
+new_actor.save
+
+new_actor = Actor.new
+new_actor["name"] = "Michael Caine"
+new_actor.save
+
+new_actor = Actor.new
+new_actor["name"] = "Liam Neeson"
+new_actor.save
+
+new_actor = Actor.new
+new_actor["name"] = "Katie Holmes"
+new_actor.save
+
+new_actor = Actor.new
+new_actor["name"] = "Gary Oldman"
+new_actor.save
+
+# Find corresponding actor and movie rows
+christian = Actor.find_by({"name"=>"Christian Bale"})
+michael = Actor.find_by({"name"=>"Michael Caine"})
+liam = Actor.find_by({"name"=>"Liam Neeson"})
+katie = Actor.find_by({"name"=>"Katie Holmes"})
+gary = Actor.find_by({"name"=>"Gary Oldman"})
+
+batman_begins = Movie.find_by({"title"=>"Batman Begins"})
+
+# Insert roles for Batman Begins
+
+new_role = Role.new
+new_role["character_name"]="Bruce Wayne"
+new_role["actor_id"]= christian["id"]
+new_role["movie_id"]= batman_begins["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Alfred"
+new_role["actor_id"]= michael["id"]
+new_role["movie_id"]= batman_begins["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Ra's Al Ghul"
+new_role["actor_id"]= liam["id"]
+new_role["movie_id"]= batman_begins["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Rachel Dawes"
+new_role["actor_id"]= katie["id"]
+new_role["movie_id"]= batman_begins["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Commissioner Gordon"
+new_role["actor_id"]= gary["id"]
+new_role["movie_id"]= batman_begins["id"]
+new_role.save
+
+#Insert more actors for The Dark Knight
+new_actor = Actor.new
+new_actor["name"] = "Heath Ledger"
+new_actor.save
+
+new_actor = Actor.new
+new_actor["name"] = "Aaron Eckhart"
+new_actor.save
+
+new_actor = Actor.new
+new_actor["name"] = "Maggie Gyllenhaal"
+new_actor.save
+
+#Find corresponding actor and movie roles
+heath = Actor.find_by({"name"=>"Heath Ledger"})
+aaron = Actor.find_by({"name"=>"Aaron Eckhart"})
+maggie = Actor.find_by({"name"=>"Maggie Gyllenhaal"})
+
+dark_knight = Movie.find_by({"title"=>"The Dark Knight"})
+
+# Insert roles for The Dark Knight
+new_role = Role.new
+new_role["character_name"]="Bruce Wayne"
+new_role["actor_id"]= christian["id"]
+new_role["movie_id"]= dark_knight["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Joker"
+new_role["actor_id"]= heath["id"]
+new_role["movie_id"]= dark_knight["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Harvey Dent"
+new_role["actor_id"]= aaron["id"]
+new_role["movie_id"]= dark_knight["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Alfred"
+new_role["actor_id"]= michael["id"]
+new_role["movie_id"]= dark_knight["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Rachel Dawes"
+new_role["actor_id"]= maggie["id"]
+new_role["movie_id"]= dark_knight["id"]
+new_role.save
+
+# Insert 
 
 # Prints a header for the movies output
 puts "Movies"
