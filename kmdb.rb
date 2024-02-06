@@ -79,7 +79,6 @@ Studio.destroy_all
 
 # Insert data into the database that reflects the sample data shown above.
 # Do not use hard-coded foreign key IDs.
-# TODO!
 
 # Insert row into studio table
 new_studio = Studio.new
@@ -191,7 +190,7 @@ new_actor = Actor.new
 new_actor["name"] = "Maggie Gyllenhaal"
 new_actor.save
 
-#Find corresponding actor and movie roles
+#Find corresponding actor and movie
 heath = Actor.find_by({"name"=>"Heath Ledger"})
 aaron = Actor.find_by({"name"=>"Aaron Eckhart"})
 maggie = Actor.find_by({"name"=>"Maggie Gyllenhaal"})
@@ -229,7 +228,57 @@ new_role["actor_id"]= maggie["id"]
 new_role["movie_id"]= dark_knight["id"]
 new_role.save
 
-# Insert 
+# Insert new actors for THe Dark Knight Rises
+
+new_actor = Actor.new
+new_actor["name"] = "Tom Hardy"
+new_actor.save
+
+new_actor = Actor.new
+new_actor["name"] = "Joseph Gordon-Levitt"
+new_actor.save
+
+new_actor = Actor.new
+new_actor["name"] = "Anne Hathaway"
+new_actor.save
+
+# Find corresponding actors and movie
+tom = Actor.find_by({"name"=>"Tom Hardy"})
+joseph = Actor.find_by({"name"=>"Joseph Gordon-Levitt"})
+anne = Actor.find_by({"name"=>"Anne Hathaway"})
+
+dark_knight_rises = Movie.find_by({"title"=>"The Dark Knight Rises"})
+
+# Insert rows into roles table for The Dark Knight Rises
+new_role = Role.new
+new_role["character_name"]="Bruce Wayne"
+new_role["actor_id"]= christian["id"]
+new_role["movie_id"]= dark_knight_rises["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Commissioner Gordon"
+new_role["actor_id"]= gary["id"]
+new_role["movie_id"]= dark_knight_rises["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Bane"
+new_role["actor_id"]= tom["id"]
+new_role["movie_id"]= dark_knight_rises["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="John Blake"
+new_role["actor_id"]= joseph["id"]
+new_role["movie_id"]= dark_knight_rises["id"]
+new_role.save
+
+new_role = Role.new
+new_role["character_name"]="Selina Kyle"
+new_role["actor_id"]= anne["id"]
+new_role["movie_id"]= dark_knight_rises["id"]
+new_role.save
 
 # Prints a header for the movies output
 puts "Movies"
@@ -237,7 +286,21 @@ puts "======"
 puts ""
 
 # Query the movies data and loop through the results to display the movies output.
-# TODO!
+movies = Movie.all
+
+for movie  in movies
+    # read each movie row's title, release year, rating, and studio
+    title = movie["title"]
+    release_year = movie["year_released"]
+    rated = movie["rated"]
+    studio_id = movie["studio_id"]
+
+    # Fetch the studio name based on studio_id
+    studio_name = Studio.find(studio_id).name
+
+    # display the info
+    puts "#{title} #{release_year} #{rated} #{studio_name}"
+  end
 
 # Prints a header for the cast output
 puts ""
@@ -246,4 +309,19 @@ puts "========"
 puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
-# TODO!
+
+roles = Role.all
+
+for role  in roles
+    # read each character's movie, actor, and role
+    movie_id = role["movie_id"]
+    actor_id = role["actor_id"]
+    role = role["chacter_name"]
+
+    # Fetch the movie title based on movie_id
+    movie_title = Movie.find(movie_id).title
+    actor_name = Actor.find(actor_id).name
+    
+    # display the first_name and last_name
+    puts "#{movie_title} #{actor_name} #{role}"
+  end
